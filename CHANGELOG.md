@@ -1,5 +1,12 @@
 
 
+## 0.2.4 (2024-08-12)
+
+
+### Bug Fixes
+
+* channels 불러오기 삭제 ([e1b6eb2](https://github.com/GennYoon/request_pr_review/commit/e1b6eb2edffcbca5b6cbed40225872421bee8c4a))
+
 ## 0.2.3 (2024-08-12)
 
 
