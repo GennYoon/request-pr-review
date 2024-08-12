@@ -32754,24 +32754,23 @@ const sendSlackMessage = async ({ channel, slack_url, owner, title, pr_url, repo
     });
 };
 (async () => {
-    var _a;
     try {
-        const _channels = (_a = core.getInput("slack-channels")) !== null && _a !== void 0 ? _a : {};
-        let slack_channels = {};
-        // const token = core.getInput("token");
+        const token = core.getInput("token");
+        const _channels = core.getInput("slack-channels");
         const slack_url = core.getInput("slack-url");
         const { payload } = github.context;
         const { pull_request, sender, repository } = payload;
+        const { title, labels, html_url: pr_url, requested_reviewers } = pull_request;
+        const repo_name = repository === null || repository === void 0 ? void 0 : repository.full_name;
+        if (requested_reviewers.length === 0) {
+            return;
+        }
+        let slack_channels = {};
         try {
             slack_channels = JSON.parse(_channels);
         }
         catch {
             slack_channels = {};
-        }
-        const { title, labels, html_url: pr_url, requested_reviewers } = pull_request;
-        const repo_name = repository === null || repository === void 0 ? void 0 : repository.full_name;
-        if (requested_reviewers.length === 0) {
-            return;
         }
         const owner = sender === null || sender === void 0 ? void 0 : sender.login;
         const reviewers = requested_reviewers.map(({ login }) => login);
