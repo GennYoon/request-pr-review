@@ -1,5 +1,12 @@
 
 
+## 0.2.3 (2024-08-12)
+
+
+### Bug Fixes
+
+* channel을 이용하는 방법을 제거 ([2d008aa](https://github.com/GennYoon/request_pr_review/commit/2d008aa6625fb8adc56ac94835b04e1640d97b78))
+
 ## 0.2.2 (2024-08-12)
 
 

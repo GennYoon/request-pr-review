@@ -32726,13 +32726,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(9093));
 const github = __importStar(__nccwpck_require__(5942));
 const axios_1 = __importDefault(__nccwpck_require__(7014));
-const sendSlackMessage = async ({ channel, slack_url, owner, title, pr_url, repo_name }) => {
+const sendSlackMessage = async ({ channel, slack_url, owner, reviewers, channels, title, pr_url, repo_name }) => {
     await (0, axios_1.default)({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         url: slack_url,
         data: {
-            channel: `@${channel}`,
             text: "PR Review 요청입니다.",
             blocks: [
                 {
@@ -32746,7 +32745,7 @@ const sendSlackMessage = async ({ channel, slack_url, owner, title, pr_url, repo
                     type: "context",
                     text: {
                         type: "mrkdwn",
-                        text: `*PR Title*: ${title}\n*PR URL*: ${pr_url}`,
+                        text: `*PR Title*: ${title}\n*PR URL*: ${pr_url}\n*Reviewers*: ${reviewers.join(", ")}\n*Channel*: ${channels.join(", ")}`,
                     },
                 },
             ],
@@ -32775,16 +32774,15 @@ const sendSlackMessage = async ({ channel, slack_url, owner, title, pr_url, repo
         const owner = sender === null || sender === void 0 ? void 0 : sender.login;
         const reviewers = requested_reviewers.map(({ login }) => login);
         const channels = reviewers.map((reviewer) => slack_channels[reviewer]);
-        for await (const channel of channels) {
-            await sendSlackMessage({
-                slack_url,
-                channel,
-                owner,
-                title,
-                pr_url,
-                repo_name,
-            });
-        }
+        await sendSlackMessage({
+            slack_url,
+            owner,
+            reviewers,
+            channels,
+            title,
+            pr_url,
+            repo_name,
+        });
     }
     catch (error) {
         core.setFailed(error.message);
