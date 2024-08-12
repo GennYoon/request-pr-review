@@ -1,5 +1,12 @@
 
 
+## 0.1.2 (2024-08-12)
+
+
+### Bug Fixes
+
+* slack blocks ([9c3cb4f](https://github.com/GennYoon/request_pr_review/commit/9c3cb4f48eb7727e7f5c60321ce8178d2f867691))
+
 ## 0.1.1 (2024-08-12)
 
 
