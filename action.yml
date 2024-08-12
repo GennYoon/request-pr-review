@@ -1,0 +1,15 @@
+name: "send-request-pr-review"
+description: "Request a review from a specific user on a PR"
+branding:
+  icon: "activity"
+  color: "green"
+inputs:
+  token:
+    description: "GitHub Token"
+    required: true
+  slack-url:
+    description: "Slack APP URL"
+    required: true
+runs:
+  using: "node16"
+  main: "index.js"
