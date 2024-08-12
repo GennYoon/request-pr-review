@@ -11,7 +11,7 @@ const sendSlackMessage = async ({ channel, slack_url, owner, title, pr_url, repo
     headers: { "Content-Type": "application/json" },
     url: slack_url,
     data: {
-      channel,
+      channel: `@${channel}`,
       text: "PR Review 요청입니다.",
       blocks: [
         {
