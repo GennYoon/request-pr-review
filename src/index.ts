@@ -5,13 +5,12 @@ import * as core from "@actions/core";
 import * as github from "@actions/github";
 import axios from "axios";
 
-const sendSlackMessage = async ({ channel, slack_url, owner, title, pr_url, repo_name }: any) => {
+const sendSlackMessage = async ({ channel, slack_url, owner, reviewers, channels, title, pr_url, repo_name }: any) => {
   await axios({
     method: "POST",
     headers: { "Content-Type": "application/json" },
     url: slack_url,
     data: {
-      channel: `@${channel}`,
       text: "PR Review 요청입니다.",
       blocks: [
         {
@@ -25,7 +24,7 @@ const sendSlackMessage = async ({ channel, slack_url, owner, title, pr_url, repo
           type: "context",
           text: {
             type: "mrkdwn",
-            text: `*PR Title*: ${title}\n*PR URL*: ${pr_url}`,
+            text: `*PR Title*: ${title}\n*PR URL*: ${pr_url}\n*Reviewers*: ${reviewers.join(", ")}\n*Channel*: ${channels.join(", ")}`,
           },
         },
       ],
@@ -58,16 +57,15 @@ const sendSlackMessage = async ({ channel, slack_url, owner, title, pr_url, repo
     const reviewers = requested_reviewers.map(({ login }: any) => login);
     const channels = reviewers.map((reviewer: string) => slack_channels[reviewer]);
 
-    for await (const channel of channels) {
-      await sendSlackMessage({
-        slack_url,
-        channel,
-        owner,
-        title,
-        pr_url,
-        repo_name,
-      });
-    }
+    await sendSlackMessage({
+      slack_url,
+      owner,
+      reviewers,
+      channels,
+      title,
+      pr_url,
+      repo_name,
+    });
   } catch (error: any) {
     core.setFailed(error.message);
   }
