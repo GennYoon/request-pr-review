@@ -5,7 +5,7 @@ import * as core from "@actions/core";
 import * as github from "@actions/github";
 import axios from "axios";
 
-const sendSlackMessage = async ({ channel, slack_url, owner, reviewers, channels, title, pr_url, repo_name }: any) => {
+const sendSlackMessage = async ({ slack_url, owner, reviewers, title, pr_url, repo_name }: any) => {
   await axios({
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -21,10 +21,24 @@ const sendSlackMessage = async ({ channel, slack_url, owner, reviewers, channels
           },
         },
         {
-          type: "context",
+          type: "section",
           text: {
             type: "mrkdwn",
-            text: `*PR Title*: ${title}\n*PR URL*: ${pr_url}\n*Reviewers*: ${reviewers.join(", ")}\n*Channel*: ${channels.join(", ")}`,
+            text: `*PR Title*: ${title}`,
+          },
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `*PR URL*: ${pr_url}`,
+          },
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `*Reviewers*: ${reviewers.join(", ")}`,
           },
         },
       ],
@@ -35,7 +49,7 @@ const sendSlackMessage = async ({ channel, slack_url, owner, reviewers, channels
 (async () => {
   try {
     const token = core.getInput("token");
-    const _channels = core.getInput("slack-channels");
+    // const _channels = core.getInput("slack-channels");
     const slack_url = core.getInput("slack-url");
     const { payload } = github.context;
     const { pull_request, sender, repository } = payload;
@@ -46,22 +60,21 @@ const sendSlackMessage = async ({ channel, slack_url, owner, reviewers, channels
       return;
     }
 
-    let slack_channels: Record<string, string> = {};
-    try {
-      slack_channels = JSON.parse(_channels);
-    } catch {
-      slack_channels = {};
-    }
+    // let slack_channels: Record<string, string> = {};
+    // try {
+    //   slack_channels = JSON.parse(_channels);
+    // } catch {
+    //   slack_channels = {};
+    // }
 
     const owner = sender?.login;
     const reviewers = requested_reviewers.map(({ login }: any) => login);
-    const channels = reviewers.map((reviewer: string) => slack_channels[reviewer]);
+    // const channels = reviewers.map((reviewer: string) => slack_channels[reviewer]);
 
     await sendSlackMessage({
       slack_url,
       owner,
       reviewers,
-      channels,
       title,
       pr_url,
       repo_name,
