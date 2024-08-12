@@ -1,5 +1,12 @@
 
 
+# 0.2.0 (2024-08-12)
+
+
+### Features
+
+* slack message 개인 맨션으로 변경 ([04c0a13](https://github.com/GennYoon/request_pr_review/commit/04c0a138408490e9141f17813b493e98cd371dcf))
+
 ## 0.1.2 (2024-08-12)
 
 

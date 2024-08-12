@@ -10,6 +10,8 @@ inputs:
   slack-url:
     description: "Slack APP URL"
     required: true
+  slack-channels:
+    description: "Slack Channels"
 runs:
   using: "node16"
   main: "index.js"
