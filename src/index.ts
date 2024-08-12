@@ -19,8 +19,7 @@ const sendSlackMessage = async ({ slack_url }: any) => {
 (async () => {
   try {
     const token = core.getInput("token");
-    const slack_url = core.getInput("slack_url");
-    console.log(github);
+    const slack_url = core.getInput("slack-url");
     const { payload } = github.context;
     const {
       pull_request,
@@ -29,6 +28,8 @@ const sendSlackMessage = async ({ slack_url }: any) => {
       requested_team,
       repository,
     } = payload;
+
+    console.log(JSON.stringify(payload, null, 2));
     const { title, labels, html_url: pr_url } = pull_request!;
     const repo_name = repository?.full_name;
 
