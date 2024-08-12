@@ -35,23 +35,23 @@ const sendSlackMessage = async ({ channel, slack_url, owner, title, pr_url, repo
 
 (async () => {
   try {
-    const _channels = core.getInput("slack-channels") ?? {};
-    let slack_channels: Record<string, string> = {};
-    // const token = core.getInput("token");
+    const token = core.getInput("token");
+    const _channels = core.getInput("slack-channels");
     const slack_url = core.getInput("slack-url");
     const { payload } = github.context;
     const { pull_request, sender, repository } = payload;
-
-    try {
-      slack_channels = JSON.parse(_channels);
-    } catch {
-      slack_channels = {};
-    }
 
     const { title, labels, html_url: pr_url, requested_reviewers } = pull_request!;
     const repo_name = repository?.full_name;
     if (requested_reviewers.length === 0) {
       return;
+    }
+
+    let slack_channels: Record<string, string> = {};
+    try {
+      slack_channels = JSON.parse(_channels);
+    } catch {
+      slack_channels = {};
     }
 
     const owner = sender?.login;
