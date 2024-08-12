@@ -1,5 +1,12 @@
 
 
+## 0.2.1 (2024-08-12)
+
+
+### Bug Fixes
+
+* some code ([60f83b5](https://github.com/GennYoon/request_pr_review/commit/60f83b5f0fcdef0c1269d178e127745060f7be94))
+
 # 0.2.0 (2024-08-12)
 
 
