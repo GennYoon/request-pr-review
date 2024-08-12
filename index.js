@@ -32726,13 +32726,43 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(9093));
 const github = __importStar(__nccwpck_require__(5942));
 const axios_1 = __importDefault(__nccwpck_require__(7014));
-const sendSlackMessage = async ({ slack_url }) => {
+const sendSlackMessage = async ({ slack_url, reviewers, owner, title, pr_url, repo_name, }) => {
     (0, axios_1.default)({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         url: slack_url,
         data: {
             text: "PR Review 요청입니다.",
+            blocks: [
+                {
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: `${owner}님이 \`${repo_name}\` PR을 요청했습니다.`,
+                    },
+                },
+                {
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: `*PR Title*: ${title}`,
+                    },
+                },
+                {
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: `*PR URL*: ${pr_url}`,
+                    },
+                },
+                {
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: `*Reviewers*: ${reviewers.join(", ")}`,
+                    },
+                },
+            ],
         },
     });
 };
@@ -32741,11 +32771,22 @@ const sendSlackMessage = async ({ slack_url }) => {
         const token = core.getInput("token");
         const slack_url = core.getInput("slack-url");
         const { payload } = github.context;
-        const { pull_request, sender, requested_reviewer, requested_team, repository, } = payload;
-        console.log(JSON.stringify(payload, null, 2));
-        const { title, labels, html_url: pr_url } = pull_request;
+        const { pull_request, sender, repository } = payload;
+        const { title, labels, html_url: pr_url, requested_reviewers, } = pull_request;
         const repo_name = repository === null || repository === void 0 ? void 0 : repository.full_name;
-        await sendSlackMessage({ slack_url });
+        if (requested_reviewers.length === 0) {
+            return;
+        }
+        const owner = sender === null || sender === void 0 ? void 0 : sender.login;
+        const reviewers = requested_reviewers.map(({ login }) => login);
+        await sendSlackMessage({
+            slack_url,
+            reviewers,
+            owner,
+            title,
+            pr_url,
+            repo_name,
+        });
     }
     catch (error) {
         core.setFailed(error.message);
