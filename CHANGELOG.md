@@ -1,5 +1,12 @@
 
 
+## [0.2.3](https://github.com/GennYoon/request_pr_review/compare/0.2.2...0.2.3) (2024-08-12)
+
+
+### Bug Fixes
+
+* channel을 이용하는 방법을 제거 ([dfd17ed](https://github.com/GennYoon/request_pr_review/commit/dfd17ed9f00388a8df37855de069c4ff03ea7464))
+
 ## 0.2.2 (2024-08-12)
 
 
