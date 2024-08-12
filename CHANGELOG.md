@@ -1,5 +1,12 @@
 
 
+## 0.2.2 (2024-08-12)
+
+
+### Bug Fixes
+
+* channel명에 @ 추가 ([05684d4](https://github.com/GennYoon/request_pr_review/commit/05684d419c428d383ef2b627e83540309ddbab95))
+
 ## 0.2.1 (2024-08-12)
 
 
