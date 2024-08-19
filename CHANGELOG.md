@@ -1,5 +1,12 @@
 
 
+## 0.2.5 (2024-08-19)
+
+
+### Bug Fixes
+
+* 오류 내용을 볼 수 있게 합니다. ([e97b983](https://github.com/GennYoon/request_pr_review/commit/e97b983feb590b48836d8310a1373ddcbca08045))
+
 ## 0.2.4 (2024-08-12)
 
 
