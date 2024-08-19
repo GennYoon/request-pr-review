@@ -80,6 +80,6 @@ const sendSlackMessage = async ({ slack_url, owner, reviewers, title, pr_url, re
       repo_name,
     });
   } catch (error: any) {
-    core.setFailed(error.message);
+    core.setFailed(error);
   }
 })();
