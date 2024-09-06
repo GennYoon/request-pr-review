@@ -13,6 +13,4 @@ jobs:
       - name: Send Request PR Review
         uses: ./
         with:
-          token: ${{ secrets.GH_TOKEN }}
           slack-url: ${{ secrets.SLACK_URL }}
-          slack-channels: ${{ secrets.SLACK_CHANNELS }}

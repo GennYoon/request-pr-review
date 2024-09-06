@@ -1,13 +1,13 @@
 {
   "name": "request-pr-review",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "",
   "main": "index.js",
   "repository": "https://github.com/GennYoon/request_pr_review",
   "scripts": {
     "release": "release-it",
     "dev": "ncc build src/index.ts -o ./ -w",
-    "test": "act pull_request --secret-file main.secrets --container-architecture linux/amd64"
+    "test": "act pull_request -e events.json --secret-file main.secrets --container-architecture linux/amd64"
   },
   "keywords": [],
   "author": "GennYoon <yoonwonyoul@webchemist.net>",
@@ -21,10 +21,15 @@
     "axios": "^1.7.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.9.1",
     "@release-it/conventional-changelog": "^8.0.1",
+    "@types/eslint": "^9.6.1",
     "@vercel/ncc": "^0.38.1",
+    "eslint": "^9.9.1",
+    "globals": "^15.9.0",
     "release-it": "^17.6.0",
     "tsc-watch": "^6.2.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.4.0"
   }
 }

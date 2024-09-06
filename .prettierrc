@@ -1,4 +1,4 @@
 {
   "$schema": "http://json.schemastore.org/prettierrc",
-  "printWidth": 180
+  "printWidth": 120
 }

@@ -1,5 +1,12 @@
 
 
+# 0.3.0 (2024-09-06)
+
+
+### Features
+
+* 테스트환경 변경 ([7dbf845](https://github.com/GennYoon/request_pr_review/commit/7dbf845b0e93ed977be1a4b29a67d1dfec8a362c))
+
 ## 0.2.5 (2024-08-19)
 
 
