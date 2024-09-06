@@ -1,6 +1,6 @@
 {
   "name": "request-pr-review",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "",
   "main": "index.js",
   "repository": "https://github.com/GennYoon/request_pr_review",
