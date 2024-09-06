@@ -5,7 +5,16 @@ import * as core from "@actions/core";
 import * as github from "@actions/github";
 import axios from "axios";
 
-const sendSlackMessage = async ({ slack_url, owner, reviewers, title, pr_url, repo_name }: any) => {
+interface SlackMessage {
+  slack_url: string;
+  owner: string;
+  reviewers: string[];
+  title: string;
+  pr_url?: string;
+  repo_name?: string;
+}
+
+const sendSlackMessage = async ({ slack_url, owner, title, pr_url, reviewers, repo_name }: SlackMessage) => {
   await axios({
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -48,13 +57,11 @@ const sendSlackMessage = async ({ slack_url, owner, reviewers, title, pr_url, re
 
 (async () => {
   try {
-    const token = core.getInput("token");
-    // const _channels = core.getInput("slack-channels");
     const slack_url = core.getInput("slack-url");
     const { payload } = github.context;
     const { pull_request, sender, repository } = payload;
 
-    const { title, labels, html_url: pr_url, requested_reviewers } = pull_request!;
+    const { title, html_url: pr_url, requested_reviewers } = pull_request!;
     const repo_name = repository?.full_name;
     if (requested_reviewers.length === 0) {
       return;
@@ -68,8 +75,7 @@ const sendSlackMessage = async ({ slack_url, owner, reviewers, title, pr_url, re
     // }
 
     const owner = sender?.login;
-    const reviewers = requested_reviewers.map(({ login }: any) => login);
-    // const channels = reviewers.map((reviewer: string) => slack_channels[reviewer]);
+    const reviewers = requested_reviewers.map(({ login }: { login: string }) => login);
 
     await sendSlackMessage({
       slack_url,
@@ -79,7 +85,7 @@ const sendSlackMessage = async ({ slack_url, owner, reviewers, title, pr_url, re
       pr_url,
       repo_name,
     });
-  } catch (error: any) {
-    core.setFailed(error);
+  } catch (error) {
+    core.setFailed(error as string | Error);
   }
 })();

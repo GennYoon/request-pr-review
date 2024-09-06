@@ -32726,7 +32726,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(9093));
 const github = __importStar(__nccwpck_require__(5942));
 const axios_1 = __importDefault(__nccwpck_require__(7014));
-const sendSlackMessage = async ({ channel, slack_url, owner, reviewers, channels, title, pr_url, repo_name }) => {
+const sendSlackMessage = async ({ slack_url, owner, title, pr_url, reviewers, repo_name }) => {
     await (0, axios_1.default)({
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -32742,10 +32742,24 @@ const sendSlackMessage = async ({ channel, slack_url, owner, reviewers, channels
                     },
                 },
                 {
-                    type: "context",
+                    type: "section",
                     text: {
                         type: "mrkdwn",
-                        text: `*PR Title*: ${title}\n*PR URL*: ${pr_url}\n*Reviewers*: ${reviewers.join(", ")}\n*Channel*: ${channels.join(", ")}`,
+                        text: `*PR Title*: ${title}`,
+                    },
+                },
+                {
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: `*PR URL*: ${pr_url}`,
+                    },
+                },
+                {
+                    type: "section",
+                    text: {
+                        type: "mrkdwn",
+                        text: `*Reviewers*: ${reviewers.join(", ")}`,
                     },
                 },
             ],
@@ -32754,38 +32768,33 @@ const sendSlackMessage = async ({ channel, slack_url, owner, reviewers, channels
 };
 (async () => {
     try {
-        const token = core.getInput("token");
-        const _channels = core.getInput("slack-channels");
         const slack_url = core.getInput("slack-url");
         const { payload } = github.context;
         const { pull_request, sender, repository } = payload;
-        const { title, labels, html_url: pr_url, requested_reviewers } = pull_request;
+        const { title, html_url: pr_url, requested_reviewers } = pull_request;
         const repo_name = repository === null || repository === void 0 ? void 0 : repository.full_name;
         if (requested_reviewers.length === 0) {
             return;
         }
-        let slack_channels = {};
-        try {
-            slack_channels = JSON.parse(_channels);
-        }
-        catch {
-            slack_channels = {};
-        }
+        // let slack_channels: Record<string, string> = {};
+        // try {
+        //   slack_channels = JSON.parse(_channels);
+        // } catch {
+        //   slack_channels = {};
+        // }
         const owner = sender === null || sender === void 0 ? void 0 : sender.login;
         const reviewers = requested_reviewers.map(({ login }) => login);
-        const channels = reviewers.map((reviewer) => slack_channels[reviewer]);
         await sendSlackMessage({
             slack_url,
             owner,
             reviewers,
-            channels,
             title,
             pr_url,
             repo_name,
         });
     }
     catch (error) {
-        core.setFailed(error.message);
+        core.setFailed(error);
     }
 })();
 
