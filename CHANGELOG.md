@@ -1,5 +1,12 @@
 
 
+# 0.4.0 (2024-09-20)
+
+
+### Features
+
+* src to ./에서 ./ to dist로 수정 ([c3f09d9](https://github.com/GennYoon/request_pr_review/commit/c3f09d9ec777137f1b134011e23394f104b16ade))
+
 # 0.3.0 (2024-09-06)
 
 
