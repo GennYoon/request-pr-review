@@ -4,8 +4,8 @@
 
     "target": "ES2019",
     "module": "commonjs",
-    "rootDir": "src",
-    "outDir": ".",
+    "rootDir": ".",
+    "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
