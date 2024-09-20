@@ -2,12 +2,12 @@
   "name": "request-pr-review",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/GennYoon/request_pr_review",
   "scripts": {
     "release": "release-it",
-    "dev": "ncc build src/index.ts -o ./ -w",
-    "test": "act pull_request -e events.json --secret-file main.secrets --container-architecture linux/amd64"
+    "dev": "ncc build index.ts -o dist -w",
+    "test": "act pull_request -e events.json --secret-file main.secrets"
   },
   "keywords": [],
   "author": "GennYoon <yoonwonyoul@webchemist.net>",
