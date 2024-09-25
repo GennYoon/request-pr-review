@@ -1,5 +1,12 @@
 
 
+## 0.4.1 (2024-09-25)
+
+
+### Bug Fixes
+
+* README.md, LICENSE file 추가 ([612ab6d](https://github.com/GennYoon/request_pr_review/commit/612ab6d8dbeb37cd353f0ddff978e3df4b6eb1cc))
+
 # 0.4.0 (2024-09-20)
 
 
