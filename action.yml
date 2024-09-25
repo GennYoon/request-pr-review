@@ -1,5 +1,5 @@
-name: "send-request-pr-review"
-description: "Request a review from a specific user on a PR"
+name: "Request a PR review via Slack"
+description: "Ask fellow developers to review your PRs via Slack"
 branding:
   icon: "activity"
   color: "green"
